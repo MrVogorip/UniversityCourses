@@ -1,0 +1,67 @@
+﻿@model GameStore.Web.ViewModel.Comment.ListCommentsViewModel
+
+@{
+    ViewData["Title"] = "Get Comments";
+    ViewData["gameKey"] = Model.GameKey;
+}
+<link href="~/css-files/popup.css" rel="stylesheet" />
+<script src="~/js-files/onactionpopup.js"></script>
+<script src="~/js-files/buildtree.helpercreates.js"></script>
+
+<hr />
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Comments for @Model.GameKey
+        </div>
+        <div class="card-body">
+            <input type="submit" name="name" class="btn" value="" />
+            <input type="submit" name="name" class="btn" value="" />
+
+            @if (Model.Comments.Count != 0)
+            {
+                <div><ul class="tree"></ul></div>
+                <a href="#ParentCommentBody" class="btn btn-primary" onclick="document.getElementById('ParentCommentId').value = ''; document.getElementById('ParentCommentName').textContent = ''; document.getElementById('ParentCommentBody').value = '';">Leave comment for game</a>
+            }
+            else
+            {
+                <h5> No comments yet </h5>
+            }
+        </div>
+    </div>
+</div>
+
+
+@if (Model.IsAdmin)
+{
+    <script src="~/js-files/buildtreeforadmin.helpercreates.js"></script>
+    <script src="~/js-files/buildtreeforadmin.js"></script>
+    <script>
+        buildTreeForAdmin(@Json.Serialize(@Model.GameKey),@Json.Serialize(@Model.Comments));
+    </script>
+}
+else
+{
+    <script src="~/js-files/buildtree.js"></script>
+    <script>
+        buildTree(@Json.Serialize(@Model.Comments),@Json.Serialize(@Model.User.IsBanned));
+    </script>
+}
+
+@if (Model.User.IsBanned)
+{
+    <div class="container">
+        <h2> You cannot leave a comment, you are banned until @Model.User.EndDateBanned.Value</h2>
+        @if (Model.User.EndDateBanned != null && Model.User.EndDateBanned.Value < DateTime.Now)
+        {
+            <h3>you can already unban yourself</h3>
+            <form asp-action="SetUnbanned" asp-controller="User" asp-route-userId="@Model.User.Id" method="post">
+                <input type="submit" value="Unban" class="btn btn-primary" />
+            </form>
+        }
+    </div>
+}
+else
+{
+    <partial name="~/Views/Comment/LeaveComment.cshtml" model='Model.NewComment' view-data="ViewData" />
+}

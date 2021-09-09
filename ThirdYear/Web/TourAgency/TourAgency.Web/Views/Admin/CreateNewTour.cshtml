@@ -1,0 +1,77 @@
+﻿@model TourAgency.Bll.BusinessModels.ResponseModel.ListOptionModel
+
+@{
+    ViewBag.Title = "CreateNewTour";
+}
+
+
+<div class="container">
+    <br />
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Create New Tour
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("CreateNewTour", "Admin", FormMethod.Post, htmlAttributes: new { @id = "Form", enctype = "multipart/form-data" }))
+            {
+                @Html.ValidationSummary(false, "", htmlAttributes: new { @class = "text-danger" })
+                <div class="row">
+                    <div class="col">
+                        <b>Type of tour:</b><br />
+                        <select name="typeOfTourId" class="form-control">
+                            <option value="" hidden selected>Select type of tour</option>
+                            @foreach (var typeOfTour in Model.TypeOfTours)
+                            {
+                                <option value="@typeOfTour.Id">@typeOfTour.Type</option>
+                            }
+                        </select>
+                        <b>Type of hotel:</b><br />
+                        <select id="typeOfHotelsId" name="typeOfHotelsId" class="form-control">
+                            <option value="" hidden selected>Select type of hotel</option>
+                            @foreach (var typeOfHotels in Model.TypeOfHotels)
+                            {
+                                <option value="@typeOfHotels.Id">@typeOfHotels.Type</option>
+                            }
+                        </select>
+                        <b>City:</b><br />
+                        <select name="cityId" class="form-control">
+                            <option value="" hidden selected>Select city</option>
+                            @foreach (var city in Model.Cities)
+                            {
+                                <option value="@city.Id">@city.NameCity</option>
+                            }
+                        </select>
+                        <b>Max number of people:</b><br />
+                        <input name="maxNumberOfPeople" type="number" min="1" max="15" maxlength="3" autocomplete="off" required class="form-control numInput">
+                    </div>
+                    <div class="col">
+                        <b>Tour start date:</b><br />
+                        <input type="text" id="picker" name="startOfTour" autocomplete="off" readonly class="form-control">
+                        <b>Tour end date:</b><br />
+                        <input type="text" id="picker" name="endOfTour" autocomplete="off" readonly class="form-control">
+                        <b>Number of orders:</b><br />
+                        <input name="numberOfOrders" type="number" min="1" max="15" maxlength="3" autocomplete="off" required class="form-control numInput">
+                        <b>Price:</b><br />
+                        <input name="price" type="number" min="100" max="1000000" step="50" maxlength="7" autocomplete="off"  required class="form-control numInput">
+                        <br />
+                        <input type="file" name="upload" /><br>
+                    </div>
+                </div>
+                <a href="#popup" class="popup-link btn btn-success w-50">Create</a>
+                <div id="popup" class="white-popup mfp-hide text-center">
+                    <p>
+                        Are you sure you want to create a tour?
+                    </p>
+                    <div class="d-flex justify-content-around">
+                        <input type="submit" value="Yes" class="popup-ok btn btn-success" />
+                        <input type="submit" value="No" class="popup-no btn btn-danger" />
+                    </div>
+                </div>
+                <br />
+                <br />
+                @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-primary w-50", @id = "Close" })
+            }
+        </div>
+    </div>
+</div>

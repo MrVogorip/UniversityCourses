@@ -1,0 +1,54 @@
+﻿@model TourAgency.Web.Models.TourViewModel
+
+@{
+    ViewBag.Title = "DeleteTour";
+}
+<div class="container">
+    <br />
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Delete Tour
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("DeleteTour", "Admin", FormMethod.Post, htmlAttributes: new { @id = "Form" }))
+            {
+                @Html.HiddenFor(model => model.Id, htmlAttributes: new { @name = "id" })
+                <b>Type of tour:</b>
+                @Html.DisplayFor(model => model.TypeOfTour.Type)
+                <br />
+                <b>Type of hotel:</b>
+                @Html.DisplayFor(model => model.TypeOfHotel.Type)
+                <br />
+                <b>Max number of people:</b>
+                @Html.DisplayFor(model => model.MaxNumberOfPeople)
+                <br />
+                <b>Price:</b>
+                @Html.DisplayFor(model => model.Price)
+                <br />
+                <b>City:</b>
+                @Html.DisplayFor(model => model.City.NameCity)
+                <br />
+                <b>Tour start date:</b>
+                @Html.DisplayFor(model => model.StartOfTour)
+                <br />
+                <b>Tour end date:</b>
+                @Html.DisplayFor(model => model.EndOfTour)
+                <br />
+                <a href="#popup" class="popup-link btn btn-danger w-50">Delete</a>
+                <div id="popup" class="white-popup mfp-hide text-center">
+                    <p>
+                        Are you sure you want to delete this?
+                    </p>
+                    <div class="d-flex justify-content-around">
+                        <input type="submit" value="Yes" class="popup-ok btn btn-success" />
+                        <input type="submit" value="No" class="popup-no btn btn-danger" />
+                    </div>
+                </div>
+                <br />
+                <br />
+                @Html.ActionLink("Back to List", "InfoTourSelect", "Manager", null, new { @class = "btn btn-primary w-50" , @id = "Close"})
+            }
+        </div>
+    </div>
+</div>

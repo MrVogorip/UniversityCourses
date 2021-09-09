@@ -1,0 +1,110 @@
+﻿@model TourAgency.Web.Models.TourViewModel
+
+@{
+    ViewBag.Title = "InfoTour";
+}
+<div class="container">
+    <br />
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Update Info Tour
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("UpdateTour", "Manager", FormMethod.Post, htmlAttributes: new { @id = "Form" }))
+            {
+                @Html.ValidationSummary(false, "", htmlAttributes: new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id, htmlAttributes: new { @name = "id" })
+                <div class="row">
+                    <div class="col">
+                        <b>Old type of tour:</b>
+                        @Html.DisplayFor(model => model.TypeOfTour.Type)
+                        <br />
+                        <b>New type of tour:</b><br />
+                        <select name="typeOfTourId" class="form-control">
+                            <option value="" hidden selected>Select type of tour</option>
+                            @foreach (var typeOfTour in ViewBag.ListOption.TypeOfTours)
+                            {
+                                <option value="@typeOfTour.Id">@typeOfTour.Type</option>
+                            }
+                        </select>
+                        @Html.ValidationMessageFor(model => model.TypeOfTour, "", new { @class = "text-danger" })
+                        <b>Old type of hotel:</b>
+                        @Html.DisplayFor(model => model.TypeOfHotel.Type)
+                        <br />
+                        <b>New type of hotel:</b><br />
+                        <select name="typeOfHotelsId" class="form-control">
+                            <option value="" hidden selected>Select type of hotel</option>
+                            @foreach (var typeOfHotels in ViewBag.ListOption.TypeOfHotels)
+                            {
+                                <option value="@typeOfHotels.Id">@typeOfHotels.Type</option>
+                            }
+                        </select>
+                        @Html.ValidationMessageFor(model => model.TypeOfHotel, "", new { @class = "text-danger" })
+                        <b>Old max number of people:</b>
+                        @Html.DisplayFor(model => model.MaxNumberOfPeople)
+                        <br />
+                        <b>New max number of people:</b><br />
+                        <input name="maxNumberOfPeople" type="number" min="1" max="15" maxlength="3" autocomplete="off" class="form-control numInput">
+                        @Html.ValidationMessageFor(model => model.MaxNumberOfPeople, "", new { @class = "text-danger" })
+                        <b>Old number of orders:</b>
+                        @Html.DisplayFor(model => model.NumberOfOrders)
+                        <br />
+                        <b>New number of orders:</b><br />
+                        <input name="numberOfOrders" type="number" min="1" max="15" maxlength="3" autocomplete="off" class="form-control numInput">
+                        @Html.ValidationMessageFor(model => model.NumberOfOrders, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col">
+                        <b>Old price:</b><br />
+                        @Html.DisplayFor(model => model.Price)
+                        <br />
+                        <b>New price:</b><br />
+                        <input name="price" type="number" min="100" max="1000000" step="100" maxlength="7" autocomplete="off" class="form-control numInput">
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        <b>Is Hot:</b><br />
+                        <input type="checkbox" name="isHot" value="true"><br />
+                        <input name="isHot" type="hidden" value="false" />
+                        @Html.ValidationMessageFor(model => model.IsHot, "", new { @class = "text-danger" })
+                        <b>Old tour start date:</b>
+                        @Html.DisplayFor(model => model.StartOfTour)
+                        <br />
+                        <b>New tour start date:</b><br />
+                        <input type="text" id="picker" name="startOfTour" autocomplete="off" readonly class="form-control">
+                        @Html.ValidationMessageFor(model => model.StartOfTour, "", new { @class = "text-danger" })
+                        <b>Old tour end date:</b>
+                        @Html.DisplayFor(model => model.EndOfTour)
+                        <br />
+                        <b>New tour end date:</b><br />
+                        <input type="text" id="picker" name="endOfTour" autocomplete="off" readonly class="form-control">
+                        @Html.ValidationMessageFor(model => model.EndOfTour, "", new { @class = "text-danger" })
+                        <b>Old city:</b><br />
+                        @Html.DisplayFor(model => model.City.NameCity)
+                        <br />
+                        <b>New city:</b><br />
+                        <select name="cityId" class="form-control">
+                            <option value="" hidden selected>Select city</option>
+                            @foreach (var city in ViewBag.ListOption.Cities)
+                            {
+                                <option value="@city.Id">@city.NameCity</option>
+                            }
+                        </select>
+                        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <a href="#popup" class="popup-link btn btn-success w-50">Update</a>
+                <div id="popup" class="white-popup mfp-hide text-center">
+                    <p>
+                        Are you sure you want to update this?
+                    </p>
+                    <div class="d-flex justify-content-around">
+                        <input type="submit" value="Yes" class="popup-ok btn btn-success" />
+                        <input type="submit" value="No" class="popup-no btn btn-danger" />
+                    </div>
+                </div>
+                <br />
+                <br />
+                @Html.ActionLink("Back to List", "InfoTourSelect", "Manager", null, new { @class = "btn btn-primary w-50", @id = "Close" })
+            }
+        </div>
+    </div>
+</div>

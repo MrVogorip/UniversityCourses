@@ -1,0 +1,65 @@
+﻿@model GameStore.Web.ViewModel.Order.ConfirmOrderViewModel
+
+@{
+    ViewData["Title"] = "Visa";
+}
+<link href="~/css-files/creditcard.css" rel="stylesheet" />
+<script src="~/js-files/creditcard.js"></script>
+
+<hr />
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Visa Form
+        </div>
+        <div class="card-body">
+            <form asp-action="ConfirmOrder" asp-route-type="Visa" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group" hidden>
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+                <div class="form-group" hidden>
+                    <label asp-for="CustomerId" class="control-label"></label>
+                    <input asp-for="CustomerId" class="form-control" />
+                    <span asp-validation-for="CustomerId" class="text-danger"></span>
+                </div>
+                <div class="card-bounding">
+                    <div class="form-group">
+                        <aside>Card Name:</aside>
+                        <input asp-for="CardHoldersName" class="form-control" />
+                        <span asp-validation-for="CardHoldersName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <aside>Card Number:</aside>
+                        <div class="card-container">
+                            <div class="card-type"></div>
+                            <input asp-for="CardNumber" placeholder="0000 0000 0000 0000" onkeyup="credir.validate(event)" maxlength="19" />
+                        </div>
+                        <span asp-validation-for="CardNumber" class="text-danger"></span>
+                    </div>
+                    <div class="card-details clearfix">
+                        <div class="expiration">
+                            <div class="form-group">
+                                <aside>Expiration Date</aside>
+                                <input asp-for="ExpirationDate" onkeyup="credir.expiry.call(this,event)" maxlength="7" placeholder="mm/yyyy" />
+                                <span asp-validation-for="ExpirationDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="cvv">
+                            <div class="form-group">
+                                <aside>CVV</aside>
+                                <input type="password" asp-for="CardVerificationValue" placeholder="XXX" maxlength="3" />
+                                <span asp-validation-for="CardVerificationValue" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-primary w-50 d-block mx-auto mt-2" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

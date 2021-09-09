@@ -1,0 +1,55 @@
+﻿@model IEnumerable<TourAgency.Web.Models.ManagerViewModel>
+
+@{
+    ViewBag.Title = "BlockUnlockManager";
+}
+<div class="container">
+    <br />
+    <br />
+    <h2 class="text-center">Block Unlock Manager</h2>
+    @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-primary w-50 d-block mx-auto", @id = "Close" })
+    <div class="container-fluid d-flex flex-wrap">
+        @foreach (var manager in Model)
+        {
+            <div class="card mr-3 ml-3 mb-3 mt-3">
+                <div class="card-header">
+                    @manager.Name
+                    @manager.Surname
+                </div>
+                <div class="card-body text-center" style="width: 18rem;">
+                    @Html.Hidden("id", manager.Id)
+                    <p>Is block? @manager.IsBlock</p>
+                    <br />
+                    @if (manager.IsBlock)
+                    {
+                        <a href="#popup@(manager.Id)" class="popup-link btn btn-success w-50">Unlock</a>
+                        <div id="popup@(manager.Id)" class="white-popup mfp-hide text-center">
+                            <p>
+                                Are you sure you want to unlock a manager?
+                            </p>
+                            <div class="d-flex justify-content-around">
+                                @Html.ActionLink("Unlock", "BlockUnlockManager", "Admin", new { id = manager.Id },
+                             new { @class = "btn btn-success" })
+                                <input type="submit" value="No" class="popup-no btn btn-danger" />
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <a href="#popup@(manager.Id)" class="popup-link btn btn-danger w-50">Block</a>
+                        <div id="popup@(manager.Id)" class="white-popup mfp-hide text-center">
+                            <p>
+                                Are you sure you want to block a manager?
+                            </p>
+                            <div class="d-flex justify-content-around">
+                                @Html.ActionLink("Block", "BlockUnlockManager", "Admin", new { id = manager.Id },
+                            new { @class = "btn btn-danger" })
+                                <input type="submit" value="No" class="popup-no btn btn-danger" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

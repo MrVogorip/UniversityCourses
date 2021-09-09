@@ -1,0 +1,95 @@
+﻿@model TourAgency.Web.Models.Paginations.TourPaginViewModel
+@using TourAgency.Web.Helpers
+@{
+    ViewBag.Title = "InfoTours";
+}
+<div class="container">
+    <br />
+    <br />
+    <h2 class="text-center">Update Info Tours</h2>
+    <table class="table">
+        <tr>
+            <th>
+                Price
+            </th>
+            <th>
+                Max people
+            </th>
+            <th>
+                Orders
+            </th>
+            <th>
+                Is Hot
+            </th>
+            <th>
+                Start
+            </th>
+            <th>
+                End
+            </th>
+            <th>
+                City
+            </th>
+            <th>
+                Hotel
+            </th>
+            <th>
+                Tour
+            </th>
+            <th>
+
+            </th>
+        </tr>
+        @foreach (var item in Model.Tours)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxNumberOfPeople)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfOrders)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsHot)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartOfTour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndOfTour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City.NameCity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeOfHotel.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeOfTour.Type)
+                </td>
+                <td>
+                    @Html.ActionLink("Update", "UpdateTour", "Manager", new { id = item.Id }, new { @class = "btn btn-warning" })
+                    @if (User.IsInRole("admin"))
+                    {
+                        @Html.ActionLink("Delete", "DeleteTour", "Admin", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+    <br />
+    @if (Model.PageInfo.TotalPages != 1)
+    {
+        <div class="text-center">
+            <nav aria-label="...">
+                <ul class="pagination pagination-lg">
+                    @Html.PageLinks(Model.PageInfo, x => Url.Action("InfoTourSelect", new { page = x }))
+                </ul>
+            </nav>
+        </div>
+    }
+</div>

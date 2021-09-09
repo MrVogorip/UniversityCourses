@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container">
+    @if (!User.IsInRole("admin"))
+    {
+        <br />
+        <br />
+        <h2 class="text-center">Manager</h2>
+    }
+<div class="container-fluid d-flex flex-wrap">
+    <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+        <div class="card-header">
+            Update info about tour
+        </div>
+        <img src="~/Content/Icons/TourUpdate.png" class="card-img-top" alt="TourUpdate">
+        <div class="card-body">
+            <p class="card-text">
+                Here you can update the information of an existing tour.
+            </p>
+            @Html.ActionLink(linkText: "Update tour", actionName: "InfoTourSelect",
+            controllerName: "Manager", htmlAttributes: new { @class = "btn btn-primary" }, routeValues: null)
+        </div>
+    </div>
+    <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+        <div class="card-header">
+            Update status tours
+        </div>
+        <img src="~/Content/Icons/TourUpdateStatus.png" class="card-img-top" alt="CustomerUpdate">
+        <div class="card-body">
+            <p class="card-text">
+                Here you can update the status of registered tours.
+            </p>
+            @Html.ActionLink(linkText: "Update status", actionName: "UpdateStatus",
+            controllerName: "Manager", htmlAttributes: new { @class = "btn btn-primary" }, routeValues: null)
+        </div>
+    </div>
+    <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+        <div class="card-header">
+            Update customer information
+        </div>
+        <img src="~/Content/Icons/CustomerUpdate.png" class="card-img-top" alt="CustomerUpdate">
+        <div class="card-body">
+            <p class="card-text">
+                Here you can update customer information.
+            </p>
+            @Html.ActionLink(linkText: "Update customer information", actionName: "UpdateCustomerInformation",
+            controllerName: "Manager", htmlAttributes: new { @class = "btn btn-primary" }, routeValues: null)
+        </div>
+    </div>
+    <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+        <div class="card-header">
+            Feedbacks
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                Here you can read feedbacks
+            </p>
+            @Html.ActionLink(linkText: "Read", actionName: "ViewFeedback",
+            controllerName: "Manager", htmlAttributes: new { @class = "btn btn-primary" }, routeValues: null)
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        {
+            toastr.options.positionClass = 'toast-bottom-left';
+              if ('@ViewData["status"]' == "success")
+              {
+                    toastr.success('@ViewData["message"]');
+              }
+              else { }
+        }
+        });
+</script> 

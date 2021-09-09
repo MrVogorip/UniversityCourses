@@ -1,0 +1,41 @@
+﻿@model IEnumerable <TourAgency.Web.Models.FeedbackViewModel>
+
+@{
+    ViewBag.Title = "ViewFeedback";
+}
+<div class="container">
+    <br />
+    <br />
+    <h2 class="text-center">Feedbacks</h2>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Message) ...
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.ActionLink("Detail", "DetailFeedback", "Manager", new { id = item.Id }, new { @class = "btn btn-warning" })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

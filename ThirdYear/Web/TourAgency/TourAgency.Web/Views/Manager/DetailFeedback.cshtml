@@ -1,0 +1,27 @@
+﻿@model TourAgency.Web.Models.FeedbackViewModel
+
+@{
+    ViewBag.Title = "DetailFeedback";
+}
+<div class="container">
+    <br />
+    <br />
+    <div class="card">
+
+        @using (Html.BeginForm("DetailFeedback", "Manager", new { id = Model.Id }, FormMethod.Post))
+        {
+            <div class="card-header">
+                @Html.DisplayFor(model => model.Customer.Name)  @Html.DisplayFor(model => model.Customer.Surname)
+            </div>
+            <div class="card-body">
+                @Html.DisplayFor(model => model.Message)
+                <br />
+                @Html.DisplayFor(model => model.Date)
+            </div>
+            <input type="submit" value="Read" class="btn btn-success mr-3 ml-3 mb-3 mt-3" />
+        }
+        <div>
+            @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-primary mr-3 ml-3 mb-3 mt-3" })
+        </div>
+    </div>
+</div>

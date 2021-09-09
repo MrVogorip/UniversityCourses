@@ -1,0 +1,89 @@
+﻿@model TourAgency.Web.Models.Paginations.TourPaginViewModel
+@using TourAgency.Web.Helpers
+@{
+    ViewBag.Title = "TourCatalog";
+}
+
+
+<div style="position: fixed; width: 18rem; height: auto;">
+    <br />
+    <br />
+    <div class="border card rounded mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+        @using (Html.BeginForm("TourCatalog", "Customer", FormMethod.Post, htmlAttributes: new { @id = "Form" }))
+        {
+            <select name="sortType" class="form-control" onchange="document.getElementById('Form').submit();">
+                <option value="" hidden>Choice Sort</option>
+                <option value="1">From smaller to larger</option>
+                <option value="2">From larger to smaller</option>
+            </select>
+            <div class="custom-control custom-radio custom-control-inline ml-3">
+                @Html.RadioButton("sort", 1, true, htmlAttributes: new { @class = "custom-control-input", @id = "customRadio1" })
+                <label class="custom-control-label" for="customRadio1">Price</label>
+            </div>
+            <br />
+            <div class="custom-control custom-radio custom-control-inline  ml-3">
+                @Html.RadioButton("sort", 2, htmlAttributes: new { @class = "custom-control-input", @id = "customRadio2" })
+                <label class="custom-control-label" for="customRadio2">Type of tour</label>
+            </div>
+            <br />
+            <div class="custom-control custom-radio custom-control-inline ml-3">
+                @Html.RadioButton("sort", 3, htmlAttributes: new { @class = "custom-control-input", @id = "customRadio3" })
+                <label class="custom-control-label" for="customRadio3">Max number of people</label>
+            </div>
+            <br />
+            <div class="custom-control custom-radio custom-control-inline ml-3">
+                @Html.RadioButton("sort", 4, htmlAttributes: new { @class = "custom-control-input", @id = "customRadio4" })
+                <label class="custom-control-label" for="customRadio4">Hotel stars</label>
+            </div>
+            <br />
+            <div class="custom-control custom-radio custom-control-inline ml-3">
+                @Html.RadioButton("sort", 5, htmlAttributes: new { @class = "custom-control-input", @id = "customRadio5" })
+                <label class="custom-control-label" for="customRadio5">Start of tour</label>
+            </div>
+        }
+    </div>
+</div>
+<div class="container-fluid" style="padding-left:320px; margin:0; position: static; width: 100%;">
+    <br />
+    <br />
+    <h2 class="text-center">All tours</h2>
+    @using (Html.BeginForm("OrderTour", "Customer", FormMethod.Post))
+    {
+        <div class="container-fluid d-flex flex-wrap">
+            @foreach (var item in Model.Tours)
+            {
+                <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+                    <div style="position:relative;">
+                        @if (item.IsHot)
+                        {
+                            <div style="position:absolute; margin-left:15px;" class="area">H O T</div>
+                        }
+                        <img class="card-img-top" src="@Url.Content("~/Content/Image/" + item.ImagePath)" />
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-text">Price: @item.Price</h6>
+                        <h6 class="card-text">Type of tour: @item.TypeOfTour.Type</h6>
+                        <h6 class="card-text">Max number of people: @item.MaxNumberOfPeople</h6>
+                        <h6 class="card-text">Hotel: @item.TypeOfHotel.Type, Stars: @item.TypeOfHotel.NumberOfStars</h6>
+                        <h6 class="card-text">Start: @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.StartOfTour))</h6>
+                        <h6 class="card-text">Number of orders: @item.NumberOfOrders</h6>
+                        <h6 class="card-text">City: @item.City.NameCity</h6>
+                        @Html.ActionLink("Order Tour", "OrderTour", new { id = item.Id }, new { @class = "btn btn-success w-50 d-block mx-auto" })
+                    </div>
+                </div>
+            }
+        </div>
+        <br />
+    }
+    @if (Model.PageInfo.TotalPages != 1)
+    {
+        <div class="text-center">
+            <nav aria-label="...">
+                <ul class="pagination pagination-lg">
+                    @Html.PageLinks(Model.PageInfo, x => Url.Action("TourCatalog", new { page = x }))
+                </ul>
+            </nav>
+        </div>
+    }
+</div>
+

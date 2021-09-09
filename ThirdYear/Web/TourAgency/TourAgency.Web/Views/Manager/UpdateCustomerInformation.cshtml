@@ -1,0 +1,90 @@
+﻿@model TourAgency.Web.Models.Paginations.CustomerPaginViewModel
+@using TourAgency.Web.Helpers
+@{
+    ViewBag.Title = "CustomersInformation";
+}
+<div class="container">
+    <br />
+    <br />
+    <h2 class="text-center">Customers</h2>
+    @using (Html.BeginForm("CustomerSearch", "Manager", FormMethod.Post, htmlAttributes: new { @id = "Form" }))
+    {
+        <h5 class="mr-3 ml-3">Search Customer</h5>
+        <div class="d-flex flex-row mr-3 ml-3 mb-3 mt-3">
+            <input type="text" class="form-control form-control-lg d-block w-auto" name="fullName" value="" />
+            <input type="submit" class="btn btn-primary mr-3 ml-3" value="Search" />
+        </div>
+    }
+    @using (Html.BeginForm("UpdateCustomerInformation", "Manager", FormMethod.Post, htmlAttributes: new { @id = "Form" }))
+    {
+        if (User.IsInRole("admin"))
+        {
+            @Html.ActionLink("Back", "Index", "Admin", null, new { @class = "btn btn-primary w-50 d-block mx-auto", @id = "Close" })
+        }
+        else
+        {
+            @Html.ActionLink("Back", "Index", "Manager", null, new { @class = "btn btn-primary w-50 d-block mx-auto", @id = "Close" })
+        }
+        <div class="container-fluid d-flex flex-wrap">
+            @foreach (var customer in Model.Customers)
+            {
+                <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+                    <div class="card-header">
+                        @Html.DisplayFor(modelItem => customer.Name)
+                        @Html.DisplayFor(modelItem => customer.Surname)
+                    </div>
+                    <div class="card-body text-center">
+                        @Html.Hidden("id", customer.Id)
+                        <p>Discount:  @customer.Discount</p>
+                        <p>Max discount: @customer.MaxDiscount</p>
+                        <p>Step discount: @customer.StepDiscount</p>
+                        <p>Is block? @customer.IsBlock</p>
+                        @Html.ActionLink("Change discount", "ChangeDiscount", new { id = customer.Id },
+                           new { @class = "btn btn-success d-block mx-auto" })
+                        <br />
+                        @if (User.IsInRole("admin"))
+                        {
+                            if (customer.IsBlock)
+                            {
+                                <a href="#popup@(customer.Id)" class="popup-link btn btn-success w-50">Unlock</a>
+                                <div id="popup@(customer.Id)" class="white-popup mfp-hide text-center">
+                                    <p>
+                                        Are you sure you want to unlock a customer?
+                                    </p>
+                                    <div class="d-flex justify-content-around">
+                                        @Html.ActionLink("Unlock", "BlockUnlockCustomer", "Admin", new { id = customer.Id },
+                                        new { @class = "btn btn-success" })
+                                        <input type="submit" value="No" class="popup-no btn btn-danger" />
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <a href="#popup@(customer.Id)" class="popup-link btn btn-danger w-50">Block</a>
+                                <div id="popup@(customer.Id)" class="white-popup mfp-hide text-center">
+                                    <p>
+                                        Are you sure you want to block a customer?
+                                    </p>
+                                    <div class="d-flex justify-content-around">
+                                        @Html.ActionLink("Block", "BlockUnlockCustomer", "Admin", new { id = customer.Id },
+                                        new { @class = "btn btn-danger" })
+                                        <input type="submit" value="No" class="popup-no btn btn-danger" />
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    <br />
+    @if (Model.PageInfo.TotalPages != 1)
+    {
+        <nav aria-label="...">
+            <ul class="pagination pagination-lg">
+                @Html.PageLinks(Model.PageInfo, x => Url.Action("UpdateCustomerInformation", new { page = x }))
+            </ul>
+        </nav>
+    }
+</div>

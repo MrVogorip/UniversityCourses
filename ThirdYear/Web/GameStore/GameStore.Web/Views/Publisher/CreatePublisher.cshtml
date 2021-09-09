@@ -1,0 +1,37 @@
+﻿@model GameStore.Web.ViewModel.PublisherViewModel
+
+@{
+    ViewData["Title"] = "Create Publisher";
+}
+
+<hr />
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Create Publisher
+        </div>
+        <div class="card-body">
+            <form asp-action="CreatePublisher" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CompanyName" class="control-label">Company Name</label>
+                    <input asp-for="CompanyName" name="CompanyName" value="@Model.CompanyName" class="form-control" />
+                    <span asp-validation-for="CompanyName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Description</label>
+                    <input asp-for="Description" name="Description" value="@Model.Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HomePage" class="control-label">Home Page</label>
+                    <input asp-for="HomePage" name="HomePage" value="@Model.HomePage"class="form-control" />
+                    <span asp-validation-for="HomePage" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

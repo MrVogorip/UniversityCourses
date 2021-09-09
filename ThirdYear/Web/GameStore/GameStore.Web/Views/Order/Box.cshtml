@@ -1,0 +1,22 @@
+﻿@using GameStore.Web.Helpers
+@model GameStore.Web.ViewModel.Order.ConfirmOrderViewModel
+
+@{
+    ViewData["Title"] = "IBox";
+}
+
+<hr />
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Select a box
+        </div>
+        <div class="card-body">
+            @foreach (var item in ResourceNames.Urls.ForBoxPayment)
+            {
+                <a class="btn btn-primary w-50 d-block mx-auto mt-2" href="@item" target="_blank" style="color:white;">@item</a>
+            }
+        </div>
+    </div>
+</div>
+

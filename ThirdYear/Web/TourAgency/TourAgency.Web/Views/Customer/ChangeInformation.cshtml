@@ -1,0 +1,42 @@
+﻿@model TourAgency.Web.Models.CustomerViewModel
+
+@{
+    ViewBag.Title = "ChangeInformation";
+}
+<div class="container">
+    <br />
+    <br />
+    <h2>ChangeInformation</h2>
+    <div class="card">
+        <div class="card-header">
+            Change personal information
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("ChangeInformation", "Customer", FormMethod.Post, htmlAttributes: new { @id = "Form" }))
+            {
+                @Html.ValidationSummary(false, "", htmlAttributes: new { @class = "text-danger" })
+                <p>Your old Name: @Model.Name </p>
+                <b>Your new Name: </b>
+                <input name="name" type="text" autocomplete="off" class="form-control numInput">
+                <br />
+                <p>Your old Surname: @Model.Surname</p>
+                <b>Your new Surname: </b>
+                <input name="surname" type="text" autocomplete="off" class="form-control numInput">
+                <br />
+                <a href="#popup" class="popup-link btn btn-success w-50">Change</a>
+                <div id="popup" class="white-popup mfp-hide text-center">
+                    <p>
+                        Are you sure you want to change?
+                    </p>
+                    <div class="d-flex justify-content-around">
+                        <input type="submit" value="Yes" class="popup-ok btn btn-success" />
+                        <input type="submit" value="No" class="popup-no btn btn-danger" />
+                    </div>
+                </div>
+                <br />
+                <br />
+                @Html.ActionLink("Back", "PersonalArea", "Customer", null, new { @class = "btn btn-primary w-50", @id = "Close" })
+            }
+        </div>
+    </div>
+</div>

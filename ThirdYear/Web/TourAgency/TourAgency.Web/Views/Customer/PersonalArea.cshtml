@@ -1,0 +1,57 @@
+﻿@model IEnumerable<TourAgency.Web.Models.TourCustomerViewModel>
+@{
+    ViewBag.Title = "PersonalArea";
+}
+<div class="container">
+    <br />
+    <br />
+    <h2 class="text-center">Personal Area</h2>
+    <div class="card">
+        <div class="card-header">
+            Personal Information
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    @using (Html.BeginForm("ChangeInformation", "Customer", FormMethod.Get))
+                    {
+                        <p>Your Name: @ViewBag.Customer.Name</p>
+                        <p>Your Surname: @ViewBag.Customer.Surname</p>
+                        <input type="submit" class="btn btn-success w-50" value="Change information" />
+                    }
+                </div>
+                <div class="col">
+                    <h2>You Step Discount: @ViewBag.Customer.StepDiscount %</h2>
+                    <h2>You Discount: @ViewBag.Customer.Discount %</h2>
+                    <h4>if you cancel the tour order, you will lose 5% discount</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class="text-center">List of my tours</h2>
+    <div class="container-fluid d-flex flex-wrap">
+        @foreach (var item in Model)
+        {
+            using (Html.BeginForm("TourCancellation", "Customer", new { id = item.Id }, FormMethod.Get))
+            {
+                <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+                    <div class="card-header">
+                        @item.TypeOfStatus.Type
+                    </div>
+                    <div class="card-body">
+                        <p>Price: @item.RealPrice</p>
+                        <p>Number of people: @item.RealNumberOfPeople</p>
+                        <p>Start: @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.Tour.StartOfTour))</p>
+                        <p>End: @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.Tour.EndOfTour))</p>
+                        <p>City: @item.Tour.City.NameCity</p>
+                        <p>Type: @item.Tour.TypeOfTour.Type</p>
+                        @if (item.TypeOfStatus.Type == "Registered")
+                        {
+                            <input type="submit" class="btn btn-danger w-50" value="Cancellations" />
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

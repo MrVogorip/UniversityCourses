@@ -1,0 +1,81 @@
+﻿@using TourAgency.Web.Models;
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container">
+    <br />
+    <br />
+    <h2 class="text-center">Admin</h2>
+    <div class="container-fluid d-flex flex-wrap">
+        <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+            <div class="card-header">
+                Create new manager
+            </div>
+            <img src="~/Content/Icons/Manager.png" class="card-img-top" alt="Manager">
+            <div class="card-body">
+                <p class="card-text">
+                    Here you can create a new manager account.
+                </p>
+                @Html.ActionLink("Create new manager", "CreateNewManager", "Account", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+        <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+            <div class="card-header">
+                Create new tour
+            </div>
+            <img src="~/Content/Icons/Tour.png" class="card-img-top" alt="Tour">
+            <div class="card-body">
+                <p class="card-text">
+                    Here you can create a new tour.
+                </p>
+                @Html.ActionLink("Create new tour", "CreateNewTour", "Admin", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+        <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+            <div class="card-header">
+                Block and unlock manager
+            </div>
+            <img src="~/Content/Icons/ManagerBlockUnlock.png" class="card-img-top" alt="ManagerBlockUnlock">
+            <div class="card-body">
+                <p class="card-text">
+                    Here you can block and unlock the manager.
+                </p>
+                @Html.ActionLink("Block/Unlock manager", "BlockUnlockManager", "Admin", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+        <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+            <div class="card-header">
+                Add Type Of Tour
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Here you can add a type of tour
+                </p>
+                @Html.ActionLink("Add", "AddTypeOfTour", "Admin", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+        <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+            <div class="card-header">
+                Add City
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Here you can add a city
+                </p>
+                @Html.ActionLink("Add", "AddCity", "Admin", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+        <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+            <div class="card-header">
+                Add Hotel
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    Here you can add a hotel
+                </p>
+                @Html.ActionLink("Add", "AddHotel", "Admin", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("~/Views/Manager/Index.cshtml")

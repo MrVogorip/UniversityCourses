@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/png" href="~/favicon.ico">
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("/lib/twitter-bootstrap/css/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/css-files/site.css")" rel="stylesheet" />
+    <script src="@Url.Content("/lib/jquery/jquery.min.js")"></script>
+    <script src="@Url.Content("/lib/twitter-bootstrap/js/bootstrap.js")"></script>
+    <script src="@Url.Content("/lib/jquery-validate/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js")"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        @Html.ActionLink("White Game Store", "GetGames", "Game", null, new { @class = "navbar-brand" })
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <span class="navbar-text">
+                        Total Games
+                        <cache expires-after="@TimeSpan.FromSeconds(60)">
+                            @await Component.InvokeAsync("TotalGames")
+                        </cache>
+                    </span>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="/busket">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Busket</button>
+            </form>
+        </div>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+    <hr />
+    <footer>
+        <div class="container">
+            <p align="center">&copy; @DateTime.Now.Year - Created by vogorip</p>
+        </div>
+    </footer>
+</body>
+</html>

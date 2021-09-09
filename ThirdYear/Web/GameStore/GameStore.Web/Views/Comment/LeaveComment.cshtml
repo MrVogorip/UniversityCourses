@@ -1,0 +1,37 @@
+﻿@model GameStore.Web.ViewModel.Comment.CommentViewModel
+
+<hr />
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            You Comment
+        </div>
+        <div class="card-body">
+            <form asp-action="LeaveComment" method="post" asp-route-gameKey="@ViewData["gameKey"].ToString()">
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Reply to :</label>
+                    <label id="ParentCommentName"> </label>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Body" class="control-label"></label>
+                    <textarea asp-for="Body" id="ParentCommentBody" class="form-control"></textarea>
+                    <span asp-validation-for="Body" class="text-danger"></span>
+                </div>
+                <div class="form-group" hidden>
+                    <label asp-for="ParentCommentId" class="control-label"></label>
+                    <input asp-for="ParentCommentId" id="ParentCommentId" class="form-control" />
+                    <span asp-validation-for="ParentCommentId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Leave" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

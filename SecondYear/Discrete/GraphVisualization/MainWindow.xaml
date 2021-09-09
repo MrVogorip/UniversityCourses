@@ -1,0 +1,24 @@
+﻿<Window x:Class="graph_visualization.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:graph_visualization"
+        mc:Ignorable="d"
+        Title="MainWin" Height="700" ResizeMode="NoResize" Width="1200">
+    <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility ="Auto" VerticalScrollBarVisibility ="Auto"   Margin="0,0,500,0">
+            <Grid Name="DrawWindow"  >
+            </Grid>
+        </ScrollViewer>
+        <ScrollViewer HorizontalScrollBarVisibility ="Auto" VerticalScrollBarVisibility ="Auto" Margin="692,0,0,100" >
+            <Grid>
+                <StackPanel Name="PanelTier" Orientation="Horizontal"/>
+            </Grid>
+        </ScrollViewer>
+        <Button Name="Draw1" Content="Build in one circle" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="699,576,0,0" Height="27" Click="Button_Bild1" IsEnabled="False"/>
+        <Button Name="Draw2" Content="Build in two circles" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="699,615,0,0" Height="27" Click="Button_Bild2" IsEnabled="False"/>
+        <Button Content="Count" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="871,576,0,0" Height="66" Click="Button_InputData"/>
+        <TextBox Name="txtBoxInput" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Input.txt" VerticalAlignment="Top" Width="120" Margin="982,600,0,0"/>
+    </Grid>
+</Window>

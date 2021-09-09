@@ -1,0 +1,55 @@
+﻿@using GameStore.Web.Payments.Enums;
+@model GameStore.Web.ViewModel.Order.OrderViewModel
+
+@{
+    ViewData["Title"] = "SubmitOrder";
+}
+
+
+<hr />
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Submit Order
+        </div>
+        <div class="card-body">
+            <h2>Total price: @Model.TotalPrice</h2>
+            <h5>Order Status : @Model.Status </h5>
+            <h5>Order Details : </h5>
+            <table class="table table-bordered">
+                <tr>
+                    <td>Game</td>
+                    <td>Quantity</td>
+                    <td>Discount</td>
+                    <td>Price</td>
+                </tr>
+                @foreach (var item in @Model.OrderDetails)
+                {
+                    <tr>
+                        <td>@item.Game.Name</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Discount</td>
+                        <td>@item.Price</td>
+                    </tr>
+                }
+            </table>
+            <h5>Select a payment system :</h5>
+            <div>
+                <table>
+                    <tr>
+                        <td style="width: 15rem;">@Html.ActionLink("pay", "PayForOrder", "Order", new { method = PaymentType.Bank, orderId = Model.Id }, new { @class = "btn btn-primary w-50 d-block mx-auto mt-2 button-img-bank" })</td>
+                        <td>A check will be generated for payment at the bank.</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 15rem;">@Html.ActionLink("pay", "PayForOrder", "Order", new { method = PaymentType.Box, orderId = Model.Id }, new { @class = "btn btn-primary w-50 d-block mx-auto mt-2 button-img-box" })</td>
+                        <td>You will be redirected to an external resource for payment</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 15rem;">@Html.ActionLink("pay", "PayForOrder", "Order", new { method = PaymentType.Visa, orderId = Model.Id }, new { @class = "btn btn-primary w-50 d-block mx-auto mt-2 button-img-visa" })</td>
+                        <td>Payment by card through a visa</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

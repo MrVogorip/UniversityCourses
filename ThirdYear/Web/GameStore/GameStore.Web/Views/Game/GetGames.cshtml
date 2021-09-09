@@ -1,0 +1,223 @@
+﻿@using GameStore.Domain.Enums
+@model GameStore.Web.ViewModel.Game.GamesAndFilterViewModel
+
+@{
+    ViewData["Title"] = "GetGames";
+}
+<script src="~/js-files/comma-separated.js"></script>
+<script src="~/js-files/filters.js"></script>
+
+<br />
+<div class="row" style="margin: 0px;">
+    <form action="/games" method="get">
+        <div class="col-sm-2">
+            <div class="container" style="width: 18rem;">
+                <div class="card">
+                    <div class="card-header">
+                        Filter Games
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="All"></div>
+                        <div class="form-group">
+                            <label asp-for="PaginationInfo.PaginItemQuantity" class="control-label">PaginItemQuantity</label>
+                            <select name="PaginationInfo.PaginItemQuantity" class="custom-select" onchange="document.getElementById('FilterBtn').click();">
+                                @foreach (var pagin in Enum.GetValues(typeof(PaginItemQuantity)).Cast<PaginItemQuantity>())
+                                {
+                                    if (Model.PaginationInfo.PaginItemQuantity == pagin)
+                                    {
+                                        <option selected value="@((int)pagin)">@pagin</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@((int)pagin)">@pagin</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="PaginationInfo.PaginItemQuantity" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Filter.SelectedGenres" class="control-label">Genres</label>
+                            <input hidden id="inputGenres" type="text" name="Filter.SelectedGenres" value="" />
+                            @foreach (var genre in Model.Filter.AllGenres)
+                            {
+                                <div>
+
+                                    @if (Model.Filter.SelectedGenres != null && Model.Filter.SelectedGenres.Contains(genre))
+                                    {
+                                        <input type="checkbox" checked class="listGenres" value="@genre" />
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" class="listGenres" value="@genre" />
+                                    }
+                                    <span>@genre</span>
+                                </div>
+                            }
+                            <span asp-validation-for="Filter.SelectedGenres"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Filter.SelectedPlatforms" class="control-label">Platforms</label>
+                            <input hidden id="inputPlatforms" type="text" name="Filter.SelectedPlatforms" value="" />
+                            @foreach (var platform in Model.Filter.AllPlatforms)
+                            {
+                                <div>
+                                    @if (Model.Filter.SelectedPlatforms != null && Model.Filter.SelectedPlatforms.Contains(platform))
+                                    {
+                                        <input type="checkbox" checked class="listPlatforms" value="@platform" />
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" class="listPlatforms" value="@platform" />
+                                    }
+                                    <span>@platform</span>
+                                </div>
+                            }
+                            <span asp-validation-for="Filter.SelectedPlatforms"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Filter.SelectedPublishers" class="control-label">Publishers</label>
+                            <input hidden id="inputPublishers" type="text" name="Filter.SelectedPublishers" value="" />
+                            @foreach (var publisher in Model.Filter.AllPublishers)
+                            {
+                                <div>
+                                    @if (Model.Filter.SelectedPublishers != null && Model.Filter.SelectedPublishers.Contains(publisher))
+                                    {
+                                        <input type="checkbox" checked class="listPublishers" value="@publisher" />
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" class="listPublishers" value="@publisher" />
+                                    }
+                                    <span>@publisher</span>
+                                </div>
+                            }
+                            <span asp-validation-for="Filter.SelectedPublishers"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Filter.SortingCriterion" class="control-label">SortingCriterion</label>
+                            <select name="Filter.SortingCriterion" class="custom-select">
+                                @foreach (var sort in Enum.GetValues(typeof(SortingCriterion)).Cast<SortingCriterion>())
+                                {
+                                    if (Model.Filter.SortingCriterion == sort)
+                                    {
+                                        <option selected value="@sort">@sort</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@sort">@sort</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="Filter.SortingCriterion" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Filter.PriceFrom" class="control-label">PriceFrom</label>
+                            <input id="numInputMin" min="0" asp-for="Filter.PriceFrom" name="Filter.PriceFrom" value="@Model.Filter.PriceFrom" class="form-control numInput" />
+                            <span asp-validation-for="Filter.PriceFrom"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Filter.PriceTo" class="control-label">PriceTo</label>
+                            <input id="numInputMax" min="0" asp-for="Filter.PriceTo" name="Filter.PriceTo" value="@Model.Filter.PriceTo" class="form-control numInput" />
+                            <span asp-validation-for="Filter.PriceTo"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Filter.DateIssue" class="control-label">DateIssue</label>
+                            @foreach (var date in Enum.GetValues(typeof(DateIssue)).Cast<DateIssue>())
+                            {
+                                <div>
+                                    @if (Model.Filter.DateIssue == date)
+                                    {
+                                        <input checked type="radio" name="Filter.DateIssue" value="@date" />
+                                    }
+                                    else
+                                    {
+                                        <input type="radio" name="Filter.DateIssue" value="@date" />
+                                    }
+                                    <span>@date</span>
+                                </div>
+                            }
+                            <span asp-validation-for="Filter.DateIssue" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Filter.GameName" class="control-label">GameName</label>
+                            <input asp-for="Filter.GameName" name="Filter.GameName" value="@Model.Filter.GameName" class="form-control" />
+                            <span asp-validation-for="Filter.GameName"></span>
+                        </div>
+                        <div class="form-group">
+                            <input hidden id="IsFilter" name="Filter.IsFilter" value="false" />
+                            <button id="FilterBtn" name="PaginationInfo.NumberCurrentPage" value="@Model.PaginationInfo.NumberCurrentPage" class="btn btn-primary">Filter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar border navbar-expand-sm navbar-light bg-light fixed-bottom">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mx-auto">
+                    @if (Model.PaginationInfo.NumberCurrentPage > 1)
+                    {
+                        <li class="nav-item">
+                            <button name="PaginationInfo.NumberCurrentPage" value="1" class="btn btn-primary mx-2">First Page</button>
+                        </li>
+                        <li class="nav-item">
+                            <button name="PaginationInfo.NumberCurrentPage" value="@(Model.PaginationInfo.NumberCurrentPage-1)" class="btn btn-primary mx-2">Previous Page</button>
+                        </li>
+                        <li class="nav-item">
+                            <button name="PaginationInfo.NumberCurrentPage" value="@(Model.PaginationInfo.NumberCurrentPage-1)" class="btn btn-primary mx-2">@(Model.PaginationInfo.NumberCurrentPage-1)</button>
+                        </li>
+                    }
+                    <li class="nav-item">
+                        <button name="PaginationInfo.NumberCurrentPage" value="@Model.PaginationInfo.NumberCurrentPage" class="btn btn-primary mx-2">Current Page</button>
+                    </li>
+                    @if (Model.PaginationInfo.NumberCurrentPage < Model.PaginationInfo.TotalPages)
+                    {
+                        <li class="nav-item">
+                            <button name="PaginationInfo.NumberCurrentPage" value="@(Model.PaginationInfo.NumberCurrentPage+1)" class="btn btn-primary mx-2">@(Model.PaginationInfo.NumberCurrentPage+1)</button>
+                        </li>
+                        <li class="nav-item">
+                            <button name="PaginationInfo.NumberCurrentPage" value="@(Model.PaginationInfo.NumberCurrentPage+1)" class="btn btn-primary mx-2">Next Page</button>
+                        </li>
+                        <li class="nav-item">
+                            <button name="PaginationInfo.NumberCurrentPage" value="@Model.PaginationInfo.TotalPages" class="btn btn-primary mx-2">Last Page</button>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </nav>
+    </form>
+
+    <div class="col-sm-9">
+        <h2 class="text-center">All Games</h2>
+        <div class="container-fluid d-flex flex-wrap">
+            @foreach (var game in Model.Games)
+            {
+                <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 15rem;">
+                    <div class="card-header">
+                        <h5>@game.Name</h5>
+                    </div>
+                    <div class="card-body">
+                        @if (!game.Discontinued)
+                        {
+                            <h6 class="card-text">Price: @game.Price</h6>
+                            @if (game.IsDiscounted)
+                            {
+                                <h6 class="card-text">Discount: @game.Discount</h6>
+                            }
+                            <h6 class="card-text">Units In Stock: @game.UnitsInStock</h6>
+                            <h6 class="card-text">Amount Views: @game.AmountViews</h6>
+                            <h6 class="card-text">Published Date: @game.PublishedDate</h6>
+                            <form action="/game/@game.Key" method="get">
+                                <input type="submit" value="Details" class="btn btn-primary w-50 d-block mx-auto" />
+                            </form>
+                        }
+                        else
+                        {
+                            <h6 class="card-text">Game was discontinued</h6>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

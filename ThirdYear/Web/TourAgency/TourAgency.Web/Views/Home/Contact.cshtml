@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<br />
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <address>
+                Somewhere far away<br />
+                <abbr title="Phone">Phone:</abbr>
+                666666
+            </address>
+            <address>
+                <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+            </address>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4067.49856815778!2d36.28486201401642!3d50.04202158703934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4127a71d9fca861d%3A0xa501bb6d97670b53!2z0J3QsNGG0LjQvtC90LDQu9GM0L3Ri9C5INCw0Y3RgNC-0LrQvtGB0LzQuNGH0LXRgdC60LjQuSDRg9C90LjQstC10YDRgdC40YLQtdGCINC40LwuINCdLiDQlS4g0JbRg9C60L7QstGB0LrQvtCz0L4gItCl0LDRgNGM0LrQvtCy0YHQutC40Lkg0LDQstC40LDRhtC40L7QvdC90YvQuSDQuNC90YHRgtC40YLRg9GCIg!5e0!3m2!1sru!2sua!4v1585424428136!5m2!1sru!2sua" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+            </iframe>
+        </div>
+        <div class="col">
+            @if (User.IsInRole("customer"))
+            {
+                <div class="card">
+                    <div class="card-body">
+                        @using (Html.BeginForm("Contact", "Home"))
+                        {
+                            @Html.ValidationSummary(false, "", htmlAttributes: new { @class = "text-danger" })
+                            <div class="form-group">
+                                <label for="message">Want to contact the manager, just write to him</label>
+                                <textarea class="form-control" name="message" rows="3"></textarea>
+                            </div>
+                            <input type="submit" value="Send" class="btn btn-success" />
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

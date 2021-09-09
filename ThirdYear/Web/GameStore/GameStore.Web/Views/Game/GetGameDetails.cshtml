@@ -1,0 +1,57 @@
+﻿@model GameStore.Web.ViewModel.Game.GameViewModel
+
+@{
+    ViewData["Title"] = "Game Details";
+}
+<link href="~/css-files/tag.css" rel="stylesheet" />
+
+<hr />
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Game: @Model.Name
+        </div>
+        <div class="card-body">
+            <h6 class="card-text">Price: @Model.Price</h6>
+            <h6 class="card-text">Units In Stock: @Model.UnitsInStock</h6>
+            <h6 class="card-text">Description: @Model.Description</h6>
+            <h6 class="card-text">Amount Views: @Model.AmountViews</h6>
+            <h6 class="card-text">Published Date: @Model.PublishedDate</h6>
+            <h6 class="card-text">
+                Company Name:
+                <a class="card-text" href="/publisher/@Model.CompanyName">@Model.CompanyName</a>
+            </h6>
+            <h6 class="card-text">Discontinued: @Model.Discontinued</h6>
+            <h6>
+                Platforms :
+                @foreach (var item in Model.Platforms)
+                {
+                    <span class="tag">@item</span>
+                }
+            </h6>
+            <h6>
+                Genres :
+                @foreach (var item in Model.Genres)
+                {
+                    <span class="tag orange">@item</span>
+                }
+            </h6>
+            <h6 class="card-text">Number of comments : @Model.Comments.Count</h6>
+        </div>
+        <form action="/game/@Model.Key/comments/true" method="get">
+            <input type="submit" value="View comments (admin)" class="btn btn-primary w-50 d-block mx-auto mt-2" />
+        </form>
+        <form action="/game/@Model.Key/comments/false" method="get">
+            <input type="submit" value="View comments" class="btn btn-primary w-50 d-block mx-auto mt-2" />
+        </form>
+        <form action="/game/@Model.Key/download" method="get">
+            <input type="submit" value="Download" class="btn btn-primary w-50 d-block mx-auto mt-2" />
+        </form>
+        <form action="/game/@Model.Key/buy" method="get">
+            <input type="submit" value="Buy" class="btn btn-primary w-50 d-block mx-auto mt-2" />
+        </form>
+        <form action="/games" method="get">
+            <input type="submit" value="Back to list games" class="btn btn-primary w-50 d-block mx-auto mt-2" />
+        </form>
+    </div>
+</div>

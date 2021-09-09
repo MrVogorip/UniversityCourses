@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TourAgency.Web.Models.TourCustomerViewModel>
+
+@{
+    ViewBag.Title = "UpdateStatus";
+}
+<div class="container">
+    <br />
+    <br />
+    <h2 class="text-center">Update Status</h2>
+    @using (Html.BeginForm("UpdateStatus", "Manager", FormMethod.Post, htmlAttributes: new { @id = "Form" }))
+    {
+        <a href="#popup" class="popup-link btn btn-success w-50 d-block mx-auto">Update status</a>
+        <br />
+        if(User.IsInRole("admin"))
+        {
+            @Html.ActionLink("Back", "Index","Admin" , null, new { @class = "btn btn-primary w-50 d-block mx-auto", @id = "Close" })
+        }
+        else
+        {
+            @Html.ActionLink("Back", "Index", "Manager", null, new { @class = "btn btn-primary w-50 d-block mx-auto", @id = "Close" })
+        }
+        <div id="popup" class="white-popup mfp-hide text-center">
+            <p>
+                Are you sure you want to update status?
+            </p>
+            <div class="d-flex justify-content-around">
+                <input type="submit" value="Yes" class="popup-ok btn btn-success" />
+                <input type="submit" value="No" class="popup-no btn btn-danger" />
+            </div>
+        </div>
+        <br />
+        <div class="container-fluid d-flex flex-wrap">
+            @foreach (var tour in Model)
+            {
+                <div class="card mr-3 ml-3 mb-3 mt-3" style="width: 18rem;">
+                    <div class="card-body text-center">
+                        <p>Price:  @tour.Tour.Price</p>
+                        <p>Customer:  @tour.Customer.Name  @tour.Customer.Surname</p>
+                        <p>Real number of people: @tour.RealNumberOfPeople</p>
+                        <p>Start: @Convert.ToString(string.Format("{0:dd/MM/yyyy}", tour.Tour.StartOfTour))</p>
+                        <p>End: @Convert.ToString(string.Format("{0:dd/MM/yyyy}", tour.Tour.EndOfTour))</p>
+                        <p>City: @tour.Tour.City.NameCity</p>
+                        <p>Type of tour: @tour.Tour.TypeOfTour.Type</p>
+                        <p>Type of status: @tour.TypeOfStatus.Type</p>
+                        <b>New status:</b><br />
+                        <select name="typeOfStatusId" class="form-control">
+                            <option value="" hidden selected>Select status</option>
+                            @foreach (var status in ViewBag.ListOption.TypeOfStatuses)
+                            {
+                                <option value="@status.Id">@status.Type</option>
+                            }
+                        </select>
+                        @Html.ValidationMessageFor(modelItem => tour.TypeOfStatus, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

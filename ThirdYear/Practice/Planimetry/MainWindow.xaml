@@ -1,0 +1,26 @@
+﻿<Window x:Class="planimetry.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:planimetry"
+        mc:Ignorable="d"
+        Title="planimetry" ResizeMode="NoResize" Height="450" Width="800">
+    <Grid>
+        <Grid Name="Platform" Margin="300,0,0,0" Background="#FFCEECC5" />
+        <TextBox Name="r1" HorizontalAlignment="Left" Height="23" Margin="67,11,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="x1" HorizontalAlignment="Left" Height="23" Margin="67,39,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="y1" HorizontalAlignment="Left" Height="23" Margin="67,67,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="r2" HorizontalAlignment="Left" Height="23" Margin="67,115,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="x2" HorizontalAlignment="Left" Height="23" Margin="67,143,0,0" TextWrapping="Wrap" Text="9" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="y2" HorizontalAlignment="Left" Height="23" Margin="67,171,0,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="50"/>
+        <Button Content="Build" HorizontalAlignment="Left" Margin="10,207,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Label Content="r1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="r2" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top"/>
+        <Label Content="y2" HorizontalAlignment="Left" Margin="10,171,0,0" VerticalAlignment="Top"/>
+        <Label Content="x1" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top"/>
+        <Label Content="x2" HorizontalAlignment="Left" Margin="10,143,0,0" VerticalAlignment="Top"/>
+        <Label Content="y1" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
+        <Label Name = "Output"  Content="" HorizontalAlignment="Left" Margin="10,272,0,0" VerticalAlignment="Top" Height="68" Width="272" Background="#FFF1B3B3"/>
+    </Grid>
+</Window>

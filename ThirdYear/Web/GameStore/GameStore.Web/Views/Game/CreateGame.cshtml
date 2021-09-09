@@ -1,0 +1,100 @@
+﻿@model GameStore.Web.ViewModel.Game.CreateGameViewModel
+
+@{
+    ViewData["Title"] = "CreateGame";
+}
+
+<hr />
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Create Game
+        </div>
+        <div class="card-body">
+            <form asp-action="CreateGame" method="post">
+                <div asp-validation-summary="All"></div>
+                <div class="form-group">
+                    <label asp-for="Key" class="control-label">Key</label>
+                    <input asp-for="Key" name="Key" value="@Model.Key" class="form-control" />
+                    <span asp-validation-for="Key"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Name</label>
+                    <input asp-for="Name" name="Name" value="@Model.Name" class="form-control" />
+                    <span asp-validation-for="Name"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Description</label>
+                    <input asp-for="Description" name="Description" value="@Model.Description" class="form-control" />
+                    <span asp-validation-for="Description"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label">Price</label>
+                    <input asp-for="Price" name="Price" value="@Model.Price" class="form-control" />
+                    <span asp-validation-for="Price"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Discount" class="control-label">Discount</label>
+                    <input asp-for="Discount" name="Discount" value="@Model.Discount" class="form-control" />
+                    <span asp-validation-for="Discount"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IsDiscounted" class="control-label">IsDiscounted</label>
+                    <input asp-for="IsDiscounted" name="IsDiscounted" value="@Model.IsDiscounted" class="form-control" />
+                    <span asp-validation-for="IsDiscounted"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UnitsInStock" class="control-label">Units In Stock</label>
+                    <input asp-for="UnitsInStock" name="UnitsInStock" value="@Model.UnitsInStock" class="form-control" />
+                    <span asp-validation-for="UnitsInStock"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Discontinued" class="control-label">Discontinued</label>
+                    <input asp-for="Discontinued" name="Discontinued" value="@Model.Discontinued" class="form-control" />
+                    <span asp-validation-for="Discontinued"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PublishedDate" class="control-label">PublishedDate</label>
+                    <input asp-for="PublishedDate" name="PublishedDate" value="@Model.PublishedDate" class="form-control" />
+                    <span asp-validation-for="PublishedDate"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Platforms" class="control-label">Platforms</label>
+                    @foreach (var item in Model.Platforms)
+                    {
+                        <div>
+                            <input type="checkbox" name="Platforms" value="@item" />
+                            <span>@item</span>
+                        </div>
+                    }
+                    <span asp-validation-for="Platforms"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Genres" class="control-label">Genres</label>
+                    <select name="Genres" class="custom-select" multiple>
+                        @foreach (var item in Model.Genres)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CompanyNames" class="control-label">Publisher</label>
+                    <select name="CompanyName" class="custom-select">
+                        @foreach (var item in Model.CompanyNames)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>

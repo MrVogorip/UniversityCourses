@@ -1,0 +1,105 @@
+﻿.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.card-bounding {
+    width: 90%;
+    max-width: 530px;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    padding: 30px;
+    border: 1px solid #3e73ea;
+    border-radius: 6px;
+    background: #ffffff;
+}
+
+    .card-bounding aside {
+        height: 100%;
+        width: 100%;
+        font-size: 24px;
+        padding-bottom: 8px;
+    }
+
+.card-container {
+    width: 100%;
+    padding-left: 80px;
+    padding-right: 40px;
+    position: relative;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 0 auto 30px auto;
+}
+
+    .card-container input {
+        width: 100%;
+        letter-spacing: 1px;
+        font-size: 30px;
+        padding: 15px 15px 15px 25px;
+        border: 0;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+.card-type {
+    width: 80px;
+    height: 56px;
+    background: url("../icons/card.jpg");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 8px;
+    left: 4px;
+}
+
+.card-valid {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    line-height: 60px;
+    font-size: 40px;
+    color: #ccc;
+}
+
+    .card-valid.active {
+        color: #42ca7c;
+    }
+
+.card-details {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 30px;
+    transition: 300ms ease;
+}
+
+    .card-details input {
+        font-size: 30px;
+        padding: 15px;
+        box-sizing: border-box;
+        border-radius: 8px;
+        width: 100%;
+    }
+
+        .card-details input.error {
+            border: 5px solid #c2313c;
+            box-shadow: 0 4px 8px 0 rgba(238,76,87,0.3);
+            outline: none;
+        }
+
+    .card-details .expiration {
+        width: 50%;
+        float: left;
+        padding-right: 5%;
+    }
+
+    .card-details .cvv {
+        width: 45%;
+        float: left;
+    }
